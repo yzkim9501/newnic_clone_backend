@@ -14,7 +14,10 @@ const postSchema = new Schema({
   title: {
     type: String
   },
-  content: {
+  htmlContent: {
+    type: String
+  },
+  plainContent: {
     type: String
   },
   date: {

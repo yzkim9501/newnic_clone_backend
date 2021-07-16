@@ -4,8 +4,10 @@ const Post = require("../schemas/post");
 
 
 router.get("/all", async (req, res, next) => {
-    const posts = await Post.find({});
-    
+    const posts = await Post.find({}).lean();
+    for(let i=0;i<posts.length;i++){
+        posts[i]['htmlContent']=decodeEntities(posts[i]['htmlContent'])
+    }
       res.json({ posts: posts });
 });
 
@@ -25,7 +27,7 @@ router.get("/main", async (req, res) => {
             return;
         }
 
-        // content는 최대 53글자까지만 출력되도록 데이터 가공
+        // content는 최대 100글자까지만 출력되도록 데이터 가공
         post.forEach((data) => {
             data.content = (data.content.substr(0, 100)) + '...';
         })
@@ -108,3 +110,20 @@ router.get("/search", async (req, res) => {
 
 
 module.exports = router;
+
+function decodeEntities(encodedString) {
+    var translate_re = /&(nbsp|amp|quot|lt|gt);/g;
+    var translate = {
+        "nbsp":" ",
+        "amp" : "&",
+        "quot": "\"",
+        "lt"  : "<",
+        "gt"  : ">"
+    };
+    return encodedString.replace(translate_re, function(match, entity) {
+        return translate[entity];
+    }).replace(/&#(\d+);/gi, function(match, numStr) {
+        var num = parseInt(numStr, 10);
+        return String.fromCharCode(num);
+    });
+}

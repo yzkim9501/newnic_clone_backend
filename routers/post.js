@@ -59,4 +59,43 @@ router.get('/detail/:postId', async (req, res) => {
 });
 
 
+// 전체 포스트 불러오기 `main?category=${category}`
+router.get("/search", async (req, res) => {
+    try {
+        const { keyword,sort } = req.query;
+        const options = [//띄어쓰기를 하지 않아도 검색이 될 수 있도록 regExp 사용
+            { title: new RegExp(keyword) },
+            { content: new RegExp(keyword) },
+        ]
+
+        let post = await Post.find({ $or: options }).sort("date").lean();
+        if(sort=='relative'){
+            for(let i=0;i<post.length;i++){ //제목 및 내용에서 검색어 갯수만큼 rel의 변수에 넣기
+                let rel=0;
+                rel+=post[i]['title'].split(keyword).length-1
+                rel+=post[i]['content'].split(keyword).length-1
+                post[i]['rel']=rel
+            }
+        }
+        post.sort((a, b) => (b.rel) - (a.rel));// rel의 값 순으로 내림차순 정렬
+
+        // 조회되는 게시물이 없을 시 403 반환
+        if (!post[0]) {
+            res.status(403).send({
+                "errorMessage": "조회되는 게시물이 없습니다."
+            })
+            return;
+        }
+        res.json({ post });
+
+    } catch (err) {
+        res.status(400).send({
+            "errorMessage": `${err} : 검색 포스트 불러오던 중 에러발생!!`
+        })
+    }
+
+
+});
+
+
 module.exports = router;

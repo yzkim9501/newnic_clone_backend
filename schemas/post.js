@@ -24,5 +24,6 @@ const postSchema = new Schema({
     type: [String]
   }
 });
+postSchema.index({ title: 'text' , content: 'text'});
 
 module.exports = mongoose.model("Post", postSchema);

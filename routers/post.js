@@ -27,7 +27,7 @@ router.get("/main", async (req, res) => {
 
         // content는 최대 53글자까지만 출력되도록 데이터 가공
         post.forEach((data) => {
-            data.content = (data.content.substr(0, 53)) + '...';
+            data.content = (data.content.substr(0, 100)) + '...';
         })
 
         res.json({ post });
@@ -86,7 +86,7 @@ router.get("/search", async (req, res) => {
         }
 
         post.forEach((data) => {
-            data.content = (data.content.substr(0, 53)) + '...';
+            data.content = (data.content.substr(0, 100)) + '...';
         })
         // 조회되는 게시물이 없을 시 403 반환
         if (!post[0]) {

@@ -12,10 +12,10 @@ router.get("/all", async (req, res, next) => {
 // 전체 포스트 불러오기 `main?category=${category}`
 router.get("/main", async (req, res) => {
     try {
-        const { category } = req.query;
-    
+        const { category } = req.query; 
+        
         // 카테고리가 존재할 시에만 카테고리 별 조회, 없을 시 전체 조회
-        const post = (category) ? await Post.find({ category }) : await Post.find({});
+        const post = (category) ? await Post.find({ category }) : await Post.find({});      
         
         // 조회되는 게시물이 없을 시 403 반환
         if (!post[0]) {
@@ -24,6 +24,12 @@ router.get("/main", async (req, res) => {
             })
             return;
         }
+
+        // content는 최대 53글자까지만 출력되도록 데이터 가공
+        post.forEach((data) => {
+            data.content = (data.content.substr(0, 53)) + '...';
+        })
+
         res.json({ post });
 
     } catch (err) {
@@ -49,7 +55,7 @@ router.get('/detail/:postId', async (req, res) => {
             return;
         }
         res.json({ detail: postDetail });
-        
+
     } catch (err) {
         res.status(400).send({
             "errorMessage": `${err} : 단일 포스트 불러오던 중 에러발생!!`

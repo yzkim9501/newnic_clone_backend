@@ -65,7 +65,7 @@ router.get('/detail/:postId', async (req, res) => {
 });
 
 
-// 전체 포스트 불러오기 `main?category=${category}`
+// 검색 포스트 불러오기 `search/posts?keyword=${keyword}&sort=${sort}`
 router.get("/search", async (req, res) => {
     try {
         const { keyword,sort } = req.query;
@@ -82,9 +82,12 @@ router.get("/search", async (req, res) => {
                 rel+=post[i]['content'].split(keyword).length-1
                 post[i]['rel']=rel
             }
+            post.sort((a, b) => (b.rel) - (a.rel));// rel의 값 순으로 내림차순 정렬
         }
-        post.sort((a, b) => (b.rel) - (a.rel));// rel의 값 순으로 내림차순 정렬
 
+        post.forEach((data) => {
+            data.content = (data.content.substr(0, 53)) + '...';
+        })
         // 조회되는 게시물이 없을 시 403 반환
         if (!post[0]) {
             res.status(403).send({

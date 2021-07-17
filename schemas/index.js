@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const connect = () => {
   mongoose
-    .connect("mongodb://52.78.42.53:27017/admin", {
+    .connect("mongodb://15.164.244.197:27017/admin", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,

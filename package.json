@@ -11,8 +11,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "email-templates": "^8.0.7",
     "express": "^4.17.1",
-    "mongoose": "^5.13.2"
+    "mongoose": "^5.13.2",
+    "nodemailer": "^6.6.3"
   },
   "devDependencies": {
     "swagger-autogen": "^2.10.4",

@@ -6,7 +6,7 @@ const Post = require("../schemas/post");
 router.get("/all", async (req, res, next) => {
     const posts = await Post.find({}).lean();
     for(let i=0;i<posts.length;i++){
-        posts[i]['htmlContent']=decodeEntities(posts[i]['htmlContent'])
+        posts[i]['htmlContent'] = decodeEntities(posts[i]['htmlContent'])
     }
       res.json({ posts: posts });
 });
@@ -29,7 +29,7 @@ router.get("/main", async (req, res) => {
 
         // content는 최대 100글자까지만 출력되도록 데이터 가공
         post.forEach((data) => {
-            data.content = (data.content.substr(0, 100)) + '...';
+            data.plainContent = (data.plainContent.substr(0, 100));
         })
 
         res.json({ post });
@@ -56,8 +56,12 @@ router.get('/detail/:postId', async (req, res) => {
             })
             return;
         }
-        res.json({ detail: postDetail });
 
+
+        postDetail['htmlContent'] = decodeEntities(postDetail['htmlContent'])
+
+        res.json({ detail: postDetail }); 
+ 
     } catch (err) {
         res.status(400).send({
             "errorMessage": `${err} : 단일 포스트 불러오던 중 에러발생!!`
@@ -88,7 +92,7 @@ router.get("/search", async (req, res) => {
         }
 
         post.forEach((data) => {
-            data.content = (data.content.substr(0, 100)) + '...';
+            data.plainContent = (data.plainContent.substr(0, 100));
         })
         // 조회되는 게시물이 없을 시 403 반환
         if (!post[0]) {

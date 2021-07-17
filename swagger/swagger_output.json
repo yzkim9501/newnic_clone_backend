@@ -44,7 +44,7 @@
         }
       }
     },
-    "/detail/{postId}": {
+    "/api/detail/{postId}": {
       "get": {
         "tags": [],
         "description": "게시글 상세보기",
@@ -66,7 +66,7 @@
         }
       }
     },
-    "/mailing": {
+    "/api/mailing": {
       "post": {
         "tags": [],
         "description": "메일 보내기",
@@ -100,7 +100,7 @@
         }
       }
     },
-    "/search": {
+    "/api/search": {
       "get": {
         "tags": [],
         "description": "키워드 검색해서 보기",

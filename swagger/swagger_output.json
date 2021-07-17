@@ -1,0 +1,128 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Newneek Hanghae ver",
+    "description": "항해99 클론 코딩, 뉴닉의 Api 문서"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/api/all": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/api/main": {
+      "get": {
+        "tags": [],
+        "description": "데이터 전체 가져오기 (테스트 확인용)",
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/detail/{postId}": {
+      "get": {
+        "tags": [],
+        "description": "게시글 상세보기",
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/search": {
+      "get": {
+        "tags": [],
+        "description": "키워드 검색해서 보기",
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "type": "string",
+            "description": "date: 날짜순, relative: 관련도순"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Post": {
+      "type": "object",
+      "properties": {
+            "postId":{
+            "type":"Number"
+            },
+            "category":{
+            "type":"String"
+            },
+            "thumbnail":{
+            "type":"String"
+            },
+            "title":{
+            "type":"String"
+            },
+            "htmlContent":{
+            "type":"String"
+            },
+            "plainContent":{
+            "type":"String"
+            },
+            "date":{
+            "type":"String"
+            },
+            "hashtag":{
+            "type": []
+            }
+        }
+    }
+  }
+}

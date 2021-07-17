@@ -5,7 +5,7 @@
     "title": "Newneek Hanghae ver",
     "description": "항해99 클론 코딩, 뉴닉의 Api 문서"
   },
-  "host": "localhost:3000",
+  "host": "15.164.244.197",
   "basePath": "/",
   "tags": [],
   "schemes": [
@@ -55,6 +55,40 @@
             "required": true,
             "type": "string"
           }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/mailing": {
+      "post": {
+        "tags": [],
+        "description": "메일 보내기",
+        "parameters": [{
+          "name": "obj",
+          "in": "body",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "emailAddress": {
+                "type": "string",
+                "description": "받는사람 이메일",
+                "example": "email@email.com"
+              },
+              "nickname": {
+                "type": "string",
+                "description": "받는사람 닉네임",
+                "example": "myNickname"
+              }
+            }
+          }
+        }
         ],
         "responses": {
           "400": {

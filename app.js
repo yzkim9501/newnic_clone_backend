@@ -1,6 +1,10 @@
 const express = require('express') //express를 쓴다
 const app = express()
 const port = 3000// port 는 3000번
+const cors = require('cors');
+
+app.use(cors());
+
 // swagger 모듈
 const swaggerUi = require('swagger-ui-express') 
 const swaggerFile = require('./swagger/swagger_output.json') 

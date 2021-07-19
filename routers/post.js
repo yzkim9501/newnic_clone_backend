@@ -27,9 +27,12 @@ router.get("/main", async (req, res) => {
             return;
         }
 
+
         // content는 최대 100글자까지만 출력되도록 데이터 가공
         post.forEach((data) => {
-            data.plainContent = (data.plainContent.substr(0, 100));
+            if (data.plainContent) {
+                data.plainContent = (data.plainContent.substr(0, 100));
+            }
         })
 
         res.json({ post });
@@ -92,7 +95,9 @@ router.get("/search", async (req, res) => {
         }
 
         post.forEach((data) => {
-            data.plainContent = (data.plainContent.substr(0, 100));
+            if (data.plainContent) {
+                data.plainContent = (data.plainContent.substr(0, 100));
+            }
         })
         // 조회되는 게시물이 없을 시 403 반환
         if (!post[0]) {
@@ -131,3 +136,4 @@ function decodeEntities(encodedString) {
         return String.fromCharCode(num);
     });
 }
+

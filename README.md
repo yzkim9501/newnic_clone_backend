@@ -37,3 +37,40 @@ https://yzkim9501.notion.site/13-474b8f8ce3d94013b8eed13eb788458d
 |  Mongoose  | MongoDB 데이터 모델링 |
 |    Cors    | Request Resource 제한 |
 |  Swagger   |      API 문서화       |
+
+
+<br>
+<hr>
+
+##  Jest 테스트 코드
+  <details>
+    <summary>기본설정</summary>
+    <br>
+    * 패키지 설치
+
+      > npm init
+      npm i jest -D
+      npm i jest supertest -D
+
+  <br>
+    * 테스트 파일 생성
+
+      > post.spec.js
+  </details>
+
+  <details>
+    <summary>Package.json 설정</summary>
+        <br>
+
+      >  "scripts": {
+  	        "test": "jest"
+          }
+  </details>
+
+  <details>
+    <summary>테스트 코드 실행</summary>
+        <br>
+
+      > npm run test
+  </details>
+  <br>

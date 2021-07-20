@@ -88,7 +88,7 @@ router.get("/search", async (req, res) => {
             for(let i=0;i<post.length;i++){ //제목 및 내용에서 검색어 갯수만큼 rel의 변수에 넣기
                 let rel=0;
                 rel+=post[i]['title'].split(keyword).length-1
-                rel+=post[i]['content'].split(keyword).length-1
+                rel+=post[i]['htmlContent'].split(keyword).length-1
                 post[i]['rel']=rel
             }
             post.sort((a, b) => (b.rel) - (a.rel));// rel의 값 순으로 내림차순 정렬
@@ -109,6 +109,7 @@ router.get("/search", async (req, res) => {
         res.json({ post });
 
     } catch (err) {
+        console.log(err)
         res.status(400).send({
             "errorMessage": `${err} : 검색 포스트 불러오던 중 에러발생!!`
         })

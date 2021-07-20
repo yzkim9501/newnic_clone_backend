@@ -1,7 +1,6 @@
 const Post = require("./schemas/post");
 const app = require('./app');
 const request = require('supertest');
-const { expect } = require('@jest/globals');
 
 // main
 it('GET /api/main 성공 시 Status Code는 200 을 반환한다.', async() => {
